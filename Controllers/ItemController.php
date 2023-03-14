@@ -102,20 +102,19 @@ class getItem
                 echo "<div class='container'>";
                 echo "<div class='row mt-4 align-content-center justify-content-center'>";
                 echo "<div class='col-4'>";
-                while ($rows = mysqli_fetch_assoc($results)) {
-                    echo "<div class='col-12'>";
-                    echo "<form action='../helpers/update_item.php' method=post>";
-                    echo "<label>Item name</label><br/><input type='text' required name='item_name' class='form-control' value=\"" . $rows['name'] . "\" ><br/>";
-                    echo "<label>Price</label><br><input type='text' required name='price' class='form-control' value='" . $rows['price'] . "' ><br/>";
-                    echo "<input type='hidden' name='item_id' value='" . $this->item_id . "' />";
-                    echo "<button type='submit' name='update' class='btn btn-primary'>Update</button>";
-                    echo "</form>";
-                    echo "</div>";
-                }
-                echo "</div>";
-                echo "</div>";
+                $rows = mysqli_fetch_assoc($results);
+                echo "<div class='col-12'>";
+                echo "<form action='../helpers/update_item.php' method=post>";
+                echo "<label>Item name</label><br/><input type='text' required name='item_name' class='form-control' value=\"" . $rows['name'] . "\" ><br/>";
+                echo "<label>Price</label><br><input type='text' required name='price' class='form-control' value='" . $rows['price'] . "' ><br/>";
+                echo "<input type='hidden' name='item_id' value='" . $this->item_id . "' />";
+                echo "<button type='submit' name='update' class='btn btn-primary'>Update</button>";
+                echo "</form>";
                 echo "</div>";
             }
+            echo "</div>";
+            echo "</div>";
+            echo "</div>";
         }
     }
 }
