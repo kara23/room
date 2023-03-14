@@ -73,8 +73,9 @@ class DeleteItem
     {
         global $conn;
 
-        $delete = "DELETE FROM items WHERE id=$item_id";
-        mysqli_query($conn, $delete);
+        $query = $conn->prepare("DELETE FROM items WHERE id=?");
+        $query->bind_param("i", $item_id);
+        $query->execute();
     }
 }
 
@@ -126,7 +127,9 @@ class MarkAsChecked
     {
         global $conn;
 
-        $checked = "UPDATE items SET is_checked=1 WHERE id=$item_id";
-        mysqli_query($conn, $checked);
+        $is_checked = 1;
+        $query = $conn->prepare("UPDATE items SET is_checked=? WHERE id=?");
+        $query->bind_param("ii", $is_checked, $item_id);
+        $query->execute();
     }
 }
