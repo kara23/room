@@ -2,19 +2,15 @@
 
 include "config/global.php";
 
-
-class landingPage
+class Home
 {
     private $view;
-    function __construct($view) // view name
+    function __construct(View $view) // inject View class into the __constructor function
     {
         $this->view = $view;
-    }
-    public function index()
-    {
-        new Redirect($this->view); // inject the view name into Redirect class
+        $this->view->redirect(); // redirect user to the destination route
     }
 }
 
-$view = new landingPage("view/items");
-$view->index();
+$redirect = new View("view/items"); // add route to the instance;
+$view = new Home($redirect);

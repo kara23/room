@@ -1,7 +1,25 @@
-<?php
-include "layout/header.php";
-include "../Controller/ItemController.php";
+<html lang="en">
 
-$id = $_GET['id'];
-$getItem = new getItem($id);
-$getItem->getItem();
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit item</title>
+
+    <?php
+    include "layout/header.php";
+    include "../Controllers/ItemController.php";
+    ?>
+</head>
+
+<body>
+    <?php
+
+    $id = $_GET['id'];
+    $getItem = new getItem($id);
+    $getItem->getItem();
+
+    ?>
+</body>
+
+</html>

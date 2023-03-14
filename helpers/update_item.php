@@ -1,17 +1,32 @@
 <?php
-include "../Controller/ItemController.php";
+include "../Controllers/ItemController.php";
 include "../config/global.php";
 
 
-class UpdateItem
+class Update
 {
-    public function submitForm($itemName, $price, $item_id, $view)
+    // define properties
+    protected $itemName;
+    protected $price;
+    protected $view;
+    protected $item_id;
+
+    public function  __construct($itemName, $price, $item_id, View $view) // inject View class into the __constructor method
     {
-        $updateItems = new UpdateItems;
-        $updateItems->update($itemName, $price, $item_id);
-        new Redirect($view); // inject the view name into Redirect class
+        $this->itemName = $itemName;
+        $this->price = $price;
+        $this->view = $view;
+        $this->item_id = $item_id;
+
+        try {
+            $updateItems = new UpdateItems;
+            $updateItems->update($this->itemName, $this->price, $this->item_id);
+            $this->view->redirect(); // redirect user to the destination route
+        } catch (Exception $e) {
+            $this->view->error($e); // call the error() method
+        }
     }
 }
 
-$updateItem = new UpdateItem;
-$updateItem->submitForm($_POST['item_name'], $_POST['price'], $_POST['item_id'], "../view/items");
+$redirect = new View("../view/items"); // add route to the instance;
+$updateItem = new Update($_POST['item_name'], $_POST['price'], $_POST['item_id'], $redirect);

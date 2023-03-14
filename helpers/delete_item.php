@@ -1,18 +1,24 @@
 <?php
-include "../Controller/ItemController.php";
+include "../Controllers/ItemController.php";
 include "../config/global.php";
 
 
 class Delete
 {
 
-    public function del($item_id, $view)
+    protected $item_id;
+    protected $view;
+
+    public function __construct($item_id, View $view) // inject View class into the __constructor method
     {
+        $this->item_id = $item_id;
+        $this->view = $view;
+
         $deleteItem = new DeleteItem;
         $deleteItem->delete($item_id);
-        new Redirect($view); // inject the view name into Redirect class
+        $view->redirect(); // redirect user to the destination route
     }
 }
 
-$deleteItem = new Delete;
-$deleteItem->del($_GET['item_id'], "../view/items");
+$redirect = new View("../view/items"); // add route to the instance;
+$deleteItem = new Delete($_GET['item_id'], $redirect);
